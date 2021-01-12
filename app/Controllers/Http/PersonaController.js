@@ -1,14 +1,24 @@
 'use strict'
 
+const { supportsReturning } = require("@adonisjs/lucid/lib/util");
+
 //const Persona = require("../../Models/Persona")
 const Persona = use('App/Models/Persona')
 const {validateAll} = use('Validator')
 
 class PersonaController {
-    async mostrar ({request, response}){
+    
+    //MOSTRAR
+    async mostrar ({}){
         return await Persona.all();
     }
 
+    //FIND
+    async find_persona ({params}){
+        return await Persona.find(params.id)
+    }
+
+    //INSERTAR
     async insertar ({request, response}){
         const input = request.all();
 
@@ -29,6 +39,7 @@ class PersonaController {
         })
     }
 
+    //ACTUALIZAR
     async actualizar ({params,request, response}){
         const input = request.all();
 
@@ -48,18 +59,19 @@ class PersonaController {
             message: "Registro actualizado correctamente"
         })
     }
-
+    
+    //DELETE
     async borrar ({params, response}){
         const persona = await Persona.findOrFail(params.id)
         
-        if(personas.delete()){
+        if(persona.delete()){
             return response.status(200).json({
                 message: "Registro borrado correctamente"
             })
         }
 
         return response.status(404).json({
-            message: "Registro no encntrado"
+            message: "Registro no encontrado"
         })
 
         

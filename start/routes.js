@@ -21,6 +21,7 @@ Route.get('/', () => {
 })
 
 Route.get('personas', 'PersonaController.mostrar')
+Route.get('persona/:id', 'PersonaController.find_persona')
 Route.post('persona', 'PersonaController.insertar').middleware(['verificaredad'])
 Route.put('persona/:id', 'PersonaController.actualizar').middleware(['verificaredad'])
 Route.delete('persona/:id', 'PersonaController.borrar')
